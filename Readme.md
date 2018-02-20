@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
 * Студент: [Татьяна Апалькова](https://up.htmlacademy.ru/javascript/12/user/169277).
-* Наставник: `Неизвестно`.
+* Наставник: `No one`.
 
 ---
 
