@@ -11,7 +11,6 @@
   var priceSelect = noticeForm.querySelector('#price');
   var roomNumber = noticeForm.querySelector('#room_number');
   var capacityGuests = noticeForm.querySelector('#capacity');
-  var address = noticeForm.querySelector('#address');
   var submit = noticeForm.querySelector('.form__submit');
 
   window.form = {
@@ -69,8 +68,6 @@
   }
   roomNumber.addEventListener('change', onChangeGuests);
 
-  address.value = address.value ? address.value : '200,400';
-
   function formValidity(evt) {
     var stopSubmit = false;
     if ((parseInt(priceSelect.value, 10) < MIN_PRICE_VARIETY [typeSelect.selectedIndex])) {
@@ -88,7 +85,7 @@
       }
     }
     if (roomNumber.selectedIndex === 1) { // 2 комнаты
-      if ((capacityGuests.value !== '1') || (capacityGuests.value !== '2')) {
+      if ((capacityGuests.value === '3') || (capacityGuests.value === '0')) {
         capacityGuests.style.border = '2px solid #ff0000';
         stopSubmit = true;
       } else {
