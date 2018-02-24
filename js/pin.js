@@ -12,7 +12,7 @@
     pin.id = onePin.id;
     pin.className = 'map__pin';
     pin.style.left = onePin.location.x - PIN_WIDTH / 2 + 'px';
-    pin.style.top = onePin.location.y + PIN_HEIGHT + 'px';
+    pin.style.top = onePin.location.y - PIN_HEIGHT + 'px';
     var pinImage = document.createElement('img');
     pinImage.src = onePin.author.avatar;
     pinImage.width = PIN_WIDTH;

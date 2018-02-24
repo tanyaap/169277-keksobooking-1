@@ -21,12 +21,18 @@
   };
 
   var adsSet = [];
-  adsSet = window.data.getSet();
+  function successHandler(data) {
+    adsSet = data;
+    for (var i = 0; i < adsSet.length; i++) {
+      adsSet[i].id = i;
+    }
+    window.pin.renderPins(adsSet);
+  }
 
   function onMouseupActivate() {
     map.classList.remove('map--faded');
     mapPinMain.removeEventListener('mouseup', onMouseupActivate);
-    window.pin.renderPins(adsSet);
+    window.backend.load(successHandler, window.backend.errorHandler);
     window.form.onMouseupFormActivate();
   }
   mapPinMain.addEventListener('mouseup', onMouseupActivate);
@@ -50,12 +56,12 @@
 
   map.addEventListener('keydown', function (evt) {
     if (!mapPinMain) {
-      window.data.isEnterEvent(evt, onPinClick);
+      window.util.isEnterEvent(evt, onPinClick);
     }
   });
 
   function onPopupEscPress(evt) {
-    window.data.isEscEvent(evt, closePopup);
+    window.util.isEscEvent(evt, closePopup);
   }
   map.addEventListener('keydown', onPopupEscPress);
 
@@ -71,7 +77,7 @@
 
   popupClose.addEventListener('click', onPopupClick);
   popupClose.addEventListener('keydown', function (evt) {
-    window.data.isEnterEvent(evt, closePopup);
+    window.util.isEnterEvent(evt, closePopup);
   });
 
   var address = document.querySelector('#address');
