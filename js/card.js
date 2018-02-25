@@ -1,6 +1,16 @@
 'use strict';
 
 (function () {
+  var fragment = document.createDocumentFragment();
+
+  function removeNodes(parent, node) {
+    var child = parent.querySelector(node);
+    while (child) {
+      parent.removeChild(child);
+      child = parent.querySelector(node);
+    }
+  }
+
   window.card = {
     popupOneAd: function (popup, oneAd) {
       popup.querySelector('.popup__avatar').src = oneAd.author.avatar;
@@ -19,15 +29,6 @@
       popup.querySelector('h4 + p').textContent = oneAd.offer.rooms + ' для ' + oneAd.offer.guests + ' гостей';
       popup.querySelectorAll('article p')[3].textContent = 'Заезд после ' + oneAd.offer.checkin + ', ' + 'выезд до ' + oneAd.offer.checkout;
 
-      var fragment = document.createDocumentFragment();
-
-      function removeNodes(parent, node) {
-        var child = parent.querySelector(node);
-        while (child) {
-          parent.removeChild(child);
-          child = parent.querySelector(node);
-        }
-      }
       var popupFeatures = popup.querySelector('.popup__features');
       removeNodes(popupFeatures, 'li');
       for (var i = 0; i < oneAd.offer.features.length; i++) {

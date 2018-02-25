@@ -3,6 +3,7 @@
 (function () {
   var MAIN_PIN_WIDTH = 40;
   var MAIN_PIN_HEIGHT = 44;
+  var DEBOUNCE_INTERVAL = 500;
   var map = document.querySelector('.map');
   var mapPins = map.querySelector('.map__pins');
   var mapPinMain = map.querySelector('.map__pin--main');
@@ -11,6 +12,7 @@
   var adTemplate = document.querySelector('template').content;
   var popup = adTemplate.querySelector('.map__card').cloneNode(true);
   var popupClose = popup.querySelector('.popup__close');
+  var filtersForm = document.querySelector('.map__filters');
   var pinMainX = mapPinMain.offsetLeft + MAIN_PIN_WIDTH / 2;
   var pinMainY = mapPinMain.offsetTop + MAIN_PIN_HEIGHT;
   var limits = {
@@ -26,7 +28,7 @@
     for (var i = 0; i < adsSet.length; i++) {
       adsSet[i].id = i;
     }
-    window.pin.renderPins(adsSet);
+    window.pin.renderPins(adsSet.slice(0, 5));
   }
 
   function onMouseupActivate() {
@@ -78,6 +80,23 @@
   popupClose.addEventListener('click', onPopupClick);
   popupClose.addEventListener('keydown', function (evt) {
     window.util.isEnterEvent(evt, closePopup);
+  });
+
+  function removeAllPins() {
+    var pins = map.querySelectorAll('.map__pin:not(.map__pin--main)');
+    [].forEach.call(pins, function (pin) {
+      mapPins.removeChild(pin);
+    });
+  }
+
+  function onFilterChange(arrAds) {
+    removeAllPins();
+    closePopup();
+    window.pin.renderPins(window.filters(arrAds).slice(0, 5));
+  }
+
+  filtersForm.addEventListener('change', function () {
+    window.util.debounce(onFilterChange(adsSet), DEBOUNCE_INTERVAL);
   });
 
   var address = document.querySelector('#address');
