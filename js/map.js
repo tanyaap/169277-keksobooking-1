@@ -68,7 +68,9 @@
   map.addEventListener('keydown', onPopupEscPress);
 
   function closePopup() {
-    pinActive.classList.remove('map__pin--active');
+    if (pinActive) {
+      pinActive.classList.remove('map__pin--active');
+    }
     popup.classList.add('hidden');
     document.removeEventListener('keydown', onPopupEscPress);
   }
