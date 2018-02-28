@@ -114,8 +114,11 @@
   }
   submit.addEventListener('click', formValidity);
 
-  noticeForm.addEventListener('submit', function (evt) {
-    window.backend.save(new FormData(noticeForm), noticeForm.reset(), window.backend.errorHandler);
-    evt.preventDefault();
+  function resetForm() {
+    noticeForm.reset();
+  }
+
+  noticeForm.addEventListener('submit', function () {
+    window.backend.save(new FormData(noticeForm), resetForm, window.backend.errorHandler);
   });
 })();
